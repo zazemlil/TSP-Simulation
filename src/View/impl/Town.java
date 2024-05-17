@@ -25,6 +25,10 @@ public class Town {
         this.colorAround = color;
     }
 
+    public void setColorFill(Color color) {
+        this.colorFill = color;
+    }
+
     public ArrayList<Ray> getFirstSideRays() {
         return firstSideRays;
     }
@@ -70,7 +74,6 @@ public class Town {
         g.drawOval(x, y, width, height);
         g.setColor(colorFill);
         g.fillOval(x, y, width, height);
-
     }
 
     public void moveTown(int deltaX, int deltaY) {
@@ -85,6 +88,4 @@ public class Town {
             ray.moveY2(deltaY);
         }
     }
-
-
 }

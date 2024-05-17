@@ -1,18 +1,35 @@
 package View.impl;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Ray {
     private int x1, y1, x2, y2;
     private Color colorAround, colorFill;
+    private JTextField weightTextField;
 
     public Ray(int x1, int y1, int x2, int y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
+
+        weightTextField = new JTextField("---");
+        weightTextField.setFocusable(false);
+        weightTextField.setVisible(true);
+    }
+    public JTextField getWeightTextField() {
+        weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
+        return weightTextField;
+    }
+
+    public void moveWeightTextField() {
+        weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
+        int l = (int)Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+        weightTextField.setText(Integer.toString(l));
     }
 
     public float getX1() {
@@ -36,6 +53,7 @@ public class Ray {
         g.drawLine(x1, y1, x2, y2);
         g.setColor(colorFill);
         g.drawLine(x1, y1, x2, y2);
+        this.moveWeightTextField();
     }
 
     public void moveX1(int deltaX) {

@@ -24,6 +24,19 @@ public class GraphPanel extends JPanel {
         this.setFocusable(true);
     }
 
+    public void clearGraphPanel() {
+        for (Town town : towns) {
+            for (Ray ray : town.getFirstSideRays()) {
+                this.remove(ray.getWeightTextField());
+            }
+            for (Ray ray : town.getSecondSideRays()) {
+                this.remove(ray.getWeightTextField());
+            }
+        }
+        towns.clear();
+        rays.clear();
+    }
+
     public GraphPanel(int width, int height) {
 
     }
@@ -118,8 +131,14 @@ public class GraphPanel extends JPanel {
     }
 
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1 && shiftPressed == false)
-            towns.add(new Town(e.getX(), e.getY()));
+        if (e.getButton() == MouseEvent.BUTTON1 && shiftPressed == false) {
+            Town town = new Town(e.getX(), e.getY());
+            if (towns.size() == 0) {
+                town.setColorFill(Color.GREEN);
+            }
+            towns.add(town);
+        }
+
 
         if (e.getButton() == MouseEvent.BUTTON1 && shiftPressed == true) {
             Town town = getCollisionElement(e.getX(), e.getY());
@@ -128,7 +147,10 @@ public class GraphPanel extends JPanel {
                 if (currentSelectTownNumber == 1) {
                     if (prevTownForRayConnect != town) {
                         Ray newRay = new Ray(selectTownX, selectTownY, e.getX(), e.getY());
+                        this.add(newRay.getWeightTextField());
+                        newRay.getWeightTextField().repaint();
                         rays.add(newRay);
+                        this.repaint();
                         prevTownForRayConnect.addFirstSideRays(newRay);
                         town.addSecondSideRays(newRay);
                     }
@@ -155,9 +177,11 @@ public class GraphPanel extends JPanel {
             if (town != null) {
                 for (Ray ray : town.getFirstSideRays()) {
                     rays.remove(ray);
+                    this.remove(ray.getWeightTextField());
                 }
                 for (Ray ray : town.getSecondSideRays()) {
                     rays.remove(ray);
+                    this.remove(ray.getWeightTextField());
                 }
                 towns.remove(town);
             }

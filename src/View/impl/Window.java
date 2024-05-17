@@ -76,13 +76,12 @@ public class Window extends JFrame implements IView, Runnable {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        menuPanel.actionPerformed(e, graphPanel.getTowns(), graphPanel.getRays());
+        menuPanel.actionPerformed(e, graphPanel);
     }
 
     @Override
     public void setKeyListener(KeyListener keyListener) {
         graphPanel.setKeyListener(keyListener);
-        //this.addKeyListener(keyListener);
     }
 
     @Override

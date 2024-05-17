@@ -28,13 +28,15 @@ public class MenuPanel extends JPanel {
 
         this.add(buttonPanel);
         this.add(resultPanel);
+
+        clearButton.setFocusable(false);
+        computeButton.setFocusable(false);
     }
-    public void actionPerformed(ActionEvent e, ArrayList<Town> towns, ArrayList<Ray> rays)
+    public void actionPerformed(ActionEvent e, GraphPanel graphPanel)
     {
         Object tmp = e.getSource();
         if (tmp == clearButton) {
-            towns.clear();
-            rays.clear();
+            graphPanel.clearGraphPanel();
         }
     }
 
