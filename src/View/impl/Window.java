@@ -1,12 +1,13 @@
 package View.impl;
 
+import View.interfaces.IObserver;
 import View.interfaces.IView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Window extends JFrame implements IView, Runnable {
+public class Window extends JFrame implements IView, IObserver, Runnable {
     private Thread thread;
     private final int FPS_SET = 400;
     private GraphPanel graphPanel;
@@ -75,8 +76,8 @@ public class Window extends JFrame implements IView, Runnable {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        menuPanel.actionPerformed(e, graphPanel);
+    public int actionPerformed(ActionEvent e) {
+        return menuPanel.actionPerformed(e, graphPanel);
     }
 
     @Override
@@ -126,5 +127,10 @@ public class Window extends JFrame implements IView, Runnable {
                 frames = 0;
             }
         }
+    }
+
+    @Override
+    public void update(String result) {
+        menuPanel.setResult("Result: " + result);
     }
 }

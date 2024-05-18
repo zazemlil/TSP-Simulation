@@ -10,7 +10,7 @@ public interface IView {
     void mouseDragged(MouseEvent e);
     void mouseClicked(MouseEvent mouseEvent);
     void mouseReleased(MouseEvent e);
-    void actionPerformed(ActionEvent e);
+    int actionPerformed(ActionEvent e);
     void setKeyListener(KeyListener keyListener);
     void setActionListener(ActionListener actionListener);
     void setMouseListener(MouseListener actionListener);

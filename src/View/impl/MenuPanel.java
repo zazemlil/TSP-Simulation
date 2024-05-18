@@ -1,5 +1,7 @@
 package View.impl;
 
+import View.utilz.Actions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,16 +34,24 @@ public class MenuPanel extends JPanel {
         clearButton.setFocusable(false);
         computeButton.setFocusable(false);
     }
-    public void actionPerformed(ActionEvent e, GraphPanel graphPanel)
+    public int actionPerformed(ActionEvent e, GraphPanel graphPanel)
     {
         Object tmp = e.getSource();
         if (tmp == clearButton) {
             graphPanel.clearGraphPanel();
         }
+        if (tmp == computeButton) {
+            return Actions.TSP_COMPUTE.getValue();
+        }
+        return -1;
     }
 
     public void setActionListener(ActionListener actionListener) {
         clearButton.addActionListener(actionListener);
         computeButton.addActionListener(actionListener);
+    }
+
+    public void setResult(String result) {
+        resultLabel.setText(result);
     }
 }

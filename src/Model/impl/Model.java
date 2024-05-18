@@ -1,11 +1,16 @@
 package Model.impl;
 
+import Controller.interfaces.IObservable;
 import Model.interfaces.IModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.utilz.*;
+import View.interfaces.IObserver;
 
-public class Model implements IModel {
+public class Model implements IModel, IObservable {
+    private List<IObserver> observers = new ArrayList<>();
     private Graph graph;
 
     public Model() {
@@ -69,6 +74,20 @@ public class Model implements IModel {
             }
         }
         return res;
+    }
+
+    public void addObserver(IObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(String result) {
+        for (IObserver observer : observers) {
+            observer.update(result);
+        }
     }
 }
 

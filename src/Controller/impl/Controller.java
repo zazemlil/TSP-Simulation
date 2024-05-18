@@ -1,18 +1,30 @@
 package Controller.impl;
 
+import Controller.interfaces.IObservable;
 import Model.interfaces.IModel;
+import View.interfaces.IObserver;
 import View.interfaces.IView;
 import Model.impl.Model;
 
 import java.awt.event.*;
 
+import View.utilz.*;
+
 public class Controller implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
     private static IView view;
     private static IModel tspModel;
+    private static IObservable observable;
+    private static IObserver observer;
 
     public Controller() {
         tspModel = new Model();
         view = ViewSelector.getInstance().getView(ViewType.GraphicView);
+
+        observable = (IObservable) tspModel;
+        observer = (IObserver) view;
+
+        observable.addObserver(observer);
+
         view.setKeyListener(this);
         view.setActionListener(this);
         view.setMouseListener(this);
@@ -61,7 +73,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        view.actionPerformed(actionEvent);
+        int action = view.actionPerformed(actionEvent);
+        if (action == Actions.TSP_COMPUTE.getValue()) {
+            int res = tspModel.tsp();
+            observable.notifyObservers(Integer.toString(res));
+        }
     }
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
