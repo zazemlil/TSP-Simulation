@@ -60,35 +60,27 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         view.actionPerformed(actionEvent);
-
-
     }
-
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         view.mouseClicked(mouseEvent);
     }
-
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         view.mousePressed(mouseEvent);
     }
-
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         view.mouseReleased(mouseEvent);
     }
-
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         view.mouseDragged(mouseEvent);
@@ -98,17 +90,14 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     public void mouseMoved(MouseEvent mouseEvent) {
 
     }
-
     @Override
     public void keyTyped(KeyEvent keyEvent) {
 
     }
-
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         view.keyPressed(keyEvent);
     }
-
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         view.keyReleased(keyEvent);

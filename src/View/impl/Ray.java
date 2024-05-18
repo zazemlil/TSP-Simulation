@@ -17,7 +17,9 @@ public class Ray {
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
 
-        weightTextField = new JTextField("---");
+        weightTextField = new JTextField("");
+        weightTextField.setSize(35, 17);
+        weightTextField.setPreferredSize(new Dimension(35, 17));
         weightTextField.setFocusable(false);
         weightTextField.setVisible(true);
     }
