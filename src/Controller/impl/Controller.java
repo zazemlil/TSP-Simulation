@@ -20,30 +20,32 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     }
 
     public void start() {
-        /*tspModel.addVertex(0);
-        tspModel.addVertex(1);
+        tspModel.addVertex(0);
+        //tspModel.addVertex(1);
         tspModel.addVertex(2);
         tspModel.addVertex(3);
+        //tspModel.deleteVertex(1);
 
-        tspModel.setRay(0, 1, 15);
+        //tspModel.setRay(0, 1, 15);
 
         tspModel.setRay(0, 2, 40);
 
-        tspModel.setRay(1, 2, 30);
+        //tspModel.setRay(1, 2, 30);
 
         tspModel.setRay(2, 3, 30);
 
 
-        tspModel.setStartPoint(2);
-        tspModel.setEndPoint(0);
+        //tspModel.setStartPoint(2);
+        //tspModel.setEndPoint(0);
 
-        tspModel.deleteRay(0, 2);
+        //tspModel.deleteRay(0, 2);
 
-        tspModel.setRay(0, 3, 1);
-        tspModel.setStartPoint(3);
-        tspModel.setEndPoint(1);
 
-        System.out.println(tspModel.tsp());*/
+        tspModel.setRay(0, 3, 2);
+        //tspModel.setStartPoint(0);
+        //tspModel.setEndPoint(0);
+
+        System.out.println(tspModel.tsp());
 
         view.start();
         update();

@@ -50,7 +50,16 @@ public class Model implements IModel {
 
     @Override
     public int tsp() {
-        int res = ErrorCodes.PATH_NOT_FIND.getValue();
+        int res = graph.tsp();
+        if (res == Integer.MAX_VALUE)
+        {
+            res = ErrorCodes.PATH_NOT_FOUND.getValue();
+        }
+        return res;
+    }
+
+    public int tspPointToPoint() {
+        int res = ErrorCodes.PATH_NOT_FOUND.getValue();
         if (graph.getEndPoint() != graph.getStartPoint())
         {
             res = graph.tsp();

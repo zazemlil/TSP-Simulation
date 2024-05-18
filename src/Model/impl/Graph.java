@@ -1,5 +1,7 @@
 package Model.impl;
 
+import Model.utilz.ErrorCodes;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,25 +88,63 @@ public class Graph {
     }
 
     public int tsp() {
-        Set<Integer> seen = new HashSet<>();
-
-        int startPointIndex = 0;
-        int i = 0;
-        for (int vertex : vertexes) {
-            if (vertex == startPoint) {
-                startPointIndex = i;
+        for (int i = 0; i < edges.length; i++) {
+            int count = 0;
+            for (int j = 0; j < edges[i].length; j++) {
+                if (edges[i][j] == null) {
+                    count++;
+                }
             }
-            i++;
+            if (count == edges[i].length) return ErrorCodes.NOT_ALL_TOWNS_CONNECTED.getValue();
         }
 
-        min = new Route(List.of(this.vertexes.get(startPointIndex)), Integer.MAX_VALUE);
+        Set<Integer> seen = new HashSet<>();
 
-        bruteforce(0, new Route(List.of(this.vertexes.get(startPointIndex)), 0), seen);
+        min = new Route(List.of(this.vertexes.get(0)), Integer.MAX_VALUE); // startPointIndex
+
+        bruteforce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
 
         return this.min.getWeight();
     }
 
+
+
     private void bruteforce(int i, Route current, Set<Integer> seen) {
+        seen.add(i);
+
+        if (seen.size() == vertexes.size()) {
+            int weight = 0;
+            if (this.edges[i][0]!=null) {
+                weight = this.edges[i][0];
+            }
+            if (weight != 0) {
+                Route route = current.add(this.vertexes.get(0), weight);
+                min = route;
+            }
+        }
+        else
+        {
+            for (int j = 0; j < vertexes.size(); j++) {
+                int weight = 0;
+                if (this.edges == null) break;
+                if (this.edges[i][j] != null) {
+                    weight = this.edges[i][j];
+                }
+                if (weight != 0 && !seen.contains(j)) {
+                    Route route = current.add(this.vertexes.get(j), weight);
+                    if (route.getWeight() < min.getWeight()) {
+                        /*min = route;
+                        System.out.println(min.getWeight());*/
+                        bruteforce(j, route, seen);
+                    }
+
+                }
+            }
+        }
+        seen.remove(i);
+    }
+
+    private void bruteforcePointToPoint(int i, Route current, Set<Integer> seen) {
         seen.add(i);
 
         if (seen.size() != vertexes.size()) {
@@ -118,11 +158,30 @@ public class Graph {
                     if (this.vertexes.get(j) == endPoint && route.getWeight() < min.getWeight()) {
                         min = route;
                     }
-                    bruteforce(j, route, seen);
+                    bruteforcePointToPoint(j, route, seen);
                 }
             }
         }
         seen.remove(i);
+    }
+
+    public int shortestWayFromPointToPoint() {
+        Set<Integer> seen = new HashSet<>();
+
+        int startPointIndex = 0;
+        int i = 0;
+        for (int vertex : vertexes) {
+            if (vertex == startPoint) {
+                startPointIndex = i;
+            }
+            i++;
+        }
+
+        min = new Route(List.of(this.vertexes.get(startPointIndex)), Integer.MAX_VALUE);
+
+        bruteforcePointToPoint(0, new Route(List.of(this.vertexes.get(startPointIndex)), 0), seen);
+
+        return this.min.getWeight();
     }
 
     public void setStartPoint(int vertex) {
