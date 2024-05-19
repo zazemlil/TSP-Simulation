@@ -8,4 +8,5 @@ public interface IModel {
     void setStartPoint(int vertex);
     void setEndPoint(int vertex);
     int tsp();
+    void clear();
 }

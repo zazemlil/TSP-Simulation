@@ -63,6 +63,11 @@ public class Model implements IModel, IObservable {
         return res;
     }
 
+    @Override
+    public void clear() {
+        graph = new Graph();
+    }
+
     public int tspPointToPoint() {
         int res = ErrorCodes.PATH_NOT_FOUND.getValue();
         if (graph.getEndPoint() != graph.getStartPoint())

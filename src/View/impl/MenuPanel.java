@@ -39,6 +39,8 @@ public class MenuPanel extends JPanel {
         Object tmp = e.getSource();
         if (tmp == clearButton) {
             graphPanel.clearGraphPanel();
+            resultLabel.setText("Result: ");
+            return Actions.CLEAR.getValue();
         }
         if (tmp == computeButton) {
             return Actions.TSP_COMPUTE.getValue();

@@ -1,5 +1,7 @@
 package View.impl;
 
+import View.utilz.Actions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,8 +13,7 @@ public class GraphPanel extends JPanel {
     private ArrayList<Ray> rays;
     private int last_x, last_y;
     private Town locked;
-    private boolean shiftPressed = false;
-    private int currentSelectTownNumber = 0, selectTownX = 0, selectTownY = 0;
+    private int currentSelectTownNumber = 0; // 0 or 1
     private Town prevTownForRayConnect = null;
     public GraphPanel() {
         this.setSize(100, 100);
@@ -61,10 +62,6 @@ public class GraphPanel extends JPanel {
         }
     }
 
-    public void setKeyListener(KeyListener keyListener) {
-        this.addKeyListener(keyListener);
-    }
-
     public void setMouseListener(MouseListener actionListener) {
         this.addMouseListener(actionListener);
     }
@@ -85,36 +82,20 @@ public class GraphPanel extends JPanel {
         return null;
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-        int key = keyEvent.getKeyCode();
-        if (key == KeyEvent.VK_SHIFT) {
-            shiftPressed = true;
-        }
-    }
-
-    public void keyReleased(KeyEvent keyEvent) {
-        int key = keyEvent.getKeyCode();
-        if (key == KeyEvent.VK_SHIFT) {
-            shiftPressed = false;
-            currentSelectTownNumber = 0;
-            selectTownX = 0;
-            selectTownY = 0;
-        }
-    }
-
     public void mouseReleased(MouseEvent e) {locked = null;}
 
     public void mousePressed(MouseEvent e)
     {
-        Town town = getCollisionElement(e.getX(), e.getY());
-        if(town != null)
-        {
-            last_x = e.getX();
-            last_y = e.getY();
-            locked = town;
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            Town town = getCollisionElement(e.getX(), e.getY());
+            if (town != null) {
+                last_x = e.getX();
+                last_y = e.getY();
+                locked = town;
 
-            towns.remove(locked);
-            towns.add(locked);
+                towns.remove(locked);
+                towns.add(locked);
+            }
         }
     }
 
@@ -130,35 +111,50 @@ public class GraphPanel extends JPanel {
         }
     }
 
-    public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1 && shiftPressed == false) {
-            Town town = new Town(e.getX(), e.getY());
-            if (towns.size() == 0) {
-                town.setColorFill(Color.GREEN);
+    public int mouseClicked(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            if (getCollisionElement(e.getX(), e.getY()) == null) {
+                if (currentSelectTownNumber == 0) {
+                    Town town = new Town(e.getX(), e.getY());
+                    if (towns.size() == 0) {
+                        town.setColorFill(Color.GREEN);
+                    }
+                    towns.add(town);
+                    return Actions.ADD_TOWN.getValue();
+                }
+                else {
+                    prevTownForRayConnect.setColorAround(Color.GREEN);
+                    currentSelectTownNumber = 0;
+                    prevTownForRayConnect = null;
+                }
             }
-            towns.add(town);
         }
 
 
-        if (e.getButton() == MouseEvent.BUTTON1 && shiftPressed == true) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
             Town town = getCollisionElement(e.getX(), e.getY());
             boolean flag = true;
             if (town != null) {
                 if (currentSelectTownNumber == 1) {
                     if (prevTownForRayConnect != town) {
-                        Ray newRay = new Ray(selectTownX, selectTownY, e.getX(), e.getY());
+                        Ray newRay = new Ray(prevTownForRayConnect.getCentreX(), prevTownForRayConnect.getCentreY(), town.getCentreX(), town.getCentreY(), prevTownForRayConnect, town);
                         this.add(newRay.getWeightTextField());
                         newRay.getWeightTextField().repaint();
                         rays.add(newRay);
                         this.repaint();
                         prevTownForRayConnect.addFirstSideRays(newRay);
                         town.addSecondSideRays(newRay);
+
+                        prevTownForRayConnect.setColorAround(Color.GREEN);
+                        currentSelectTownNumber = 0;
+                        prevTownForRayConnect = null;
+                        flag = false;
+
+                        return Actions.ADD_RAY.getValue();
                     }
 
                     prevTownForRayConnect.setColorAround(Color.GREEN);
                     currentSelectTownNumber = 0;
-                    selectTownX = 0;
-                    selectTownY = 0;
                     prevTownForRayConnect = null;
                     flag = false;
                 }
@@ -166,13 +162,18 @@ public class GraphPanel extends JPanel {
                     town.setColorAround(Color.RED);
                     prevTownForRayConnect = town;
                     currentSelectTownNumber = 1;
-                    selectTownX = e.getX();
-                    selectTownY = e.getY();
                 }
             }
         }
 
         if (e.getButton() == MouseEvent.BUTTON3) {
+            if (currentSelectTownNumber != 0) {
+                prevTownForRayConnect.setColorAround(Color.GREEN);
+                currentSelectTownNumber = 0;
+                prevTownForRayConnect = null;
+                return -1;
+            }
+
             Town town = getCollisionElement(e.getX(), e.getY());
             if (town != null) {
                 for (Ray ray : town.getFirstSideRays()) {
@@ -184,7 +185,11 @@ public class GraphPanel extends JPanel {
                     this.remove(ray.getWeightTextField());
                 }
                 towns.remove(town);
+
+                return Actions.DELETE_TOWN.getValue();
             }
         }
+
+        return -1;
     }
 }

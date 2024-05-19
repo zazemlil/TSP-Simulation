@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 import View.utilz.*;
 
-public class Controller implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
+public class Controller implements ActionListener, MouseListener, MouseMotionListener {
     private static IView view;
     private static IModel tspModel;
     private static IObservable observable;
@@ -25,7 +25,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
         observable.addObserver(observer);
 
-        view.setKeyListener(this);
         view.setActionListener(this);
         view.setMouseListener(this);
         view.setMouseMotionListener(this);
@@ -77,11 +76,23 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
         if (action == Actions.TSP_COMPUTE.getValue()) {
             int res = tspModel.tsp();
             observable.notifyObservers(Integer.toString(res));
+        } else if (action == Actions.CLEAR.getValue()) {
+            tspModel.clear();
         }
     }
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        view.mouseClicked(mouseEvent);
+        int res = view.mouseClicked(mouseEvent);
+        if (res == Actions.ADD_TOWN.getValue()) {
+            // -------------
+            System.out.println("add town");
+        } else if (res == Actions.DELETE_TOWN.getValue()) {
+            // -------------
+            System.out.println("delete town");
+        } else if (res == Actions.ADD_RAY.getValue()) {
+            // -------------
+            System.out.println("add ray");
+        }
     }
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
@@ -107,17 +118,5 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
 
-    }
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        view.keyPressed(keyEvent);
-    }
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        view.keyReleased(keyEvent);
     }
 }

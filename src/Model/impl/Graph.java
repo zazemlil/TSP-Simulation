@@ -88,6 +88,9 @@ public class Graph {
     }
 
     public int tsp() {
+        if (edges == null) {
+            return ErrorCodes.NO_TOWNS.getValue();
+        }
         for (int i = 0; i < edges.length; i++) {
             int count = 0;
             for (int j = 0; j < edges[i].length; j++) {

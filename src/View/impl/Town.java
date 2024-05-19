@@ -88,4 +88,13 @@ public class Town {
             ray.moveY2(deltaY);
         }
     }
+
+    public int getCentreX() {
+        return width/2 + x;
+    }
+
+    public int getCentreY() {
+        return height/2 + y;
+    }
+
 }

@@ -46,16 +46,6 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
     }
 
     @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        graphPanel.keyPressed(keyEvent);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        graphPanel.keyReleased(keyEvent);
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
         graphPanel.mousePressed(e);
     }
@@ -71,18 +61,13 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        graphPanel.mouseClicked(mouseEvent);
+    public int mouseClicked(MouseEvent mouseEvent) {
+        return graphPanel.mouseClicked(mouseEvent);
     }
 
     @Override
     public int actionPerformed(ActionEvent e) {
         return menuPanel.actionPerformed(e, graphPanel);
-    }
-
-    @Override
-    public void setKeyListener(KeyListener keyListener) {
-        graphPanel.setKeyListener(keyListener);
     }
 
     @Override
