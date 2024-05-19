@@ -11,11 +11,14 @@ import java.awt.event.*;
 
 import View.utilz.*;
 
-public class Controller implements ActionListener, MouseListener, MouseMotionListener {
+public class Controller implements ActionListener, MouseListener, MouseMotionListener, ItemListener, Runnable {
+    private Thread thread;
     private static IView view;
     private static IModel tspModel;
     private static IObservable observable;
     private static IObserver observer;
+    private static int realTimeUpdating = 0; // 0 or 1
+    private final int UPS_SET = 10;
 
     public Controller() {
         tspModel = new Model();
@@ -29,12 +32,26 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
         view.setActionListener(this);
         view.setMouseListener(this);
         view.setMouseMotionListener(this);
+        view.setItemStateListener(this);
+
+        thread = new Thread(this);
     }
 
     public void start() {
         view.start();
+        thread.start();
     }
 
+    private void update() {
+        if (realTimeUpdating == 1) {
+            int res = tspModel.tsp();
+            if (res >= 0)
+                observable.notifyObservers(Integer.toString(res));
+            else {
+                observable.notifyObservers(ErrorCodes.getInfo(res));
+            }
+        }
+    }
     public static void main(String[] args) {
         (new Controller()).start();
     }
@@ -96,6 +113,45 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent itemEvent) {
+        int res = view.itemStateChanged(itemEvent);
+        if (res == Actions.REAL_TIME_UPDATING.getValue()) {
+            Integer[][] params = Actions.getParams(Actions.REAL_TIME_UPDATING.getValue());
+
+            realTimeUpdating = params[0][0];
+        }
+    }
+
+    @Override
+    public void run() {
+        double timePerFrame = 1000000000.0 / UPS_SET;
+        long previousTime = System.nanoTime();
+
+        int frames = 0;
+        double deltaF = 0;
+
+        long lastCheck = System.currentTimeMillis();
+        while (true) {
+            long currentTime = System.nanoTime();
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+
+            if (deltaF >= 1) {
+                update();
+                frames++;
+                deltaF--;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+
+                frames = 0;
+            }
+        }
 
     }
 }

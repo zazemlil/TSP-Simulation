@@ -62,6 +62,16 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
     }
 
     @Override
+    public int itemStateChanged(ItemEvent itemEvent) {
+        return menuPanel.itemStateChanged(itemEvent);
+    }
+
+    @Override
+    public void setItemStateListener(ItemListener itemListener) {
+        menuPanel.setItemStateListener(itemListener);
+    }
+
+    @Override
     public void setActionListener(ActionListener actionListener) {
         menuPanel.setActionListener(actionListener);
     }

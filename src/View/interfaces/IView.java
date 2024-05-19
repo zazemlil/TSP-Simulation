@@ -9,6 +9,8 @@ public interface IView {
     int mouseClicked(MouseEvent mouseEvent);
     void mouseReleased(MouseEvent e);
     int actionPerformed(ActionEvent e);
+    int itemStateChanged(ItemEvent itemEvent);
+    void setItemStateListener(ItemListener itemListener);
     void setActionListener(ActionListener actionListener);
     void setMouseListener(MouseListener actionListener);
     void setMouseMotionListener(MouseMotionListener actionListener);
