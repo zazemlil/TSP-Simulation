@@ -17,7 +17,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     private static IModel tspModel;
     private static IObservable observable;
     private static IObserver observer;
-    private static int realTimeUpdating = 0; // 0 or 1
+    private static boolean realTimeUpdating = false; // 0 or 1
     private final int UPS_SET = 10;
 
     public Controller() {
@@ -43,7 +43,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     }
 
     private void update() {
-        if (realTimeUpdating == 1) {
+        if (realTimeUpdating == true) {
             int res = tspModel.tsp();
             if (res >= 0)
                 observable.notifyObservers(Integer.toString(res));
@@ -122,7 +122,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
         if (res == Actions.REAL_TIME_UPDATING.getValue()) {
             Integer[][] params = Actions.getParams(Actions.REAL_TIME_UPDATING.getValue());
 
-            realTimeUpdating = params[0][0];
+            if (params[0][0] == 1)
+                realTimeUpdating = true;
+            else if (params[0][0] == 0) {
+                realTimeUpdating = false;
+            }
         }
     }
 
