@@ -112,6 +112,7 @@ public class GraphPanel extends JPanel {
     }
 
     public int mouseClicked(MouseEvent e) {
+        // add town
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (getCollisionElement(e.getX(), e.getY()) == null) {
                 if (currentSelectTownNumber == 0) {
@@ -130,7 +131,7 @@ public class GraphPanel extends JPanel {
             }
         }
 
-
+        // add ray
         if (e.getButton() == MouseEvent.BUTTON1) {
             Town town = getCollisionElement(e.getX(), e.getY());
             boolean flag = true;
@@ -166,6 +167,7 @@ public class GraphPanel extends JPanel {
             }
         }
 
+        // delete town
         if (e.getButton() == MouseEvent.BUTTON3) {
             if (currentSelectTownNumber != 0) {
                 prevTownForRayConnect.setColorAround(Color.GREEN);

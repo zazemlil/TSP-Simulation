@@ -11,10 +11,10 @@ public class Town {
     private ArrayList<Ray> secondSideRays;
 
     public Town(int x, int y) {
-        this.x = x;
-        this.y = y;
         this.width = 50;
         this.height = 50;
+        this.x = x - width/2;
+        this.y = y - height/2;
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
         firstSideRays = new ArrayList<>();
