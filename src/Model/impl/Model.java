@@ -24,8 +24,8 @@ public class Model implements IModel, IObservable {
 
     @Override
     public void setRay(int vertex1, int vertex2, int weight) {
-        graph.addEdge(vertex1, vertex2, weight);
-        graph.addEdge(vertex2, vertex1, weight);
+        graph.setRay(vertex1, vertex2, weight);
+        graph.setRay(vertex2, vertex1, weight);
     }
 
     @Override

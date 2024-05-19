@@ -32,7 +32,7 @@ public class Graph {
         edges = newEdges;
     }
 
-    public void addEdge(int vertex1, int vertex2, int weight) {
+    public void setRay(int vertex1, int vertex2, int weight) {
         Integer[] params = new Integer[] {vertex1, vertex2, weight};
         for (Integer[] item : edgesParams) {
             if (item[0] == vertex1 && item[1] == vertex2 || item[0] == vertex2 && item[1] == vertex1) {
@@ -73,12 +73,12 @@ public class Graph {
 
         min = new Route(List.of(this.vertexes.get(0)), Integer.MAX_VALUE);
 
-        bruteforce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
+        bruteForce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
 
         return this.min.getWeight();
     }
 
-    private void bruteforce(int i, Route current, Set<Integer> seen) {
+    private void bruteForce(int i, Route current, Set<Integer> seen) {
         seen.add(i);
 
         if (seen.size() == vertexes.size()) {
@@ -102,7 +102,7 @@ public class Graph {
                 if (weight != 0 && !seen.contains(j)) {
                     Route route = current.add(this.vertexes.get(j), weight);
                     if (route.getWeight() < min.getWeight()) {
-                        bruteforce(j, route, seen);
+                        bruteForce(j, route, seen);
                     }
 
                 }
