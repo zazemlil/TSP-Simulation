@@ -83,7 +83,7 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
 
     @Override
     public void setMouseMotionListener(MouseMotionListener mouseMotionListener) {
-        graphPanel.addMouseMotionListener(mouseMotionListener);
+        graphPanel.setMouseMotionListener(mouseMotionListener);
     }
 
     @Override

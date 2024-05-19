@@ -66,7 +66,6 @@ public class Graph {
                     count++;
                 }
             }
-            System.out.println();
             if (count == edges[i].length) return ErrorCodes.NOT_ALL_TOWNS_CONNECTED.getValue();
         }
 
@@ -103,8 +102,6 @@ public class Graph {
                 if (weight != 0 && !seen.contains(j)) {
                     Route route = current.add(this.vertexes.get(j), weight);
                     if (route.getWeight() < min.getWeight()) {
-                        /*min = route;
-                        System.out.println(min.getWeight());*/
                         bruteforce(j, route, seen);
                     }
 

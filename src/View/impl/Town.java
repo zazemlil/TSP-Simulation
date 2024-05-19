@@ -114,5 +114,4 @@ public class Town {
     public int getCentreY() {
         return height/2 + y;
     }
-
 }

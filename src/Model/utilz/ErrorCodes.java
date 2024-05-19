@@ -1,7 +1,5 @@
 package Model.utilz;
 
-import View.utilz.Actions;
-
 public enum ErrorCodes {
     PATH_NOT_FOUND(-1, "Error: can not find path"),
     START_END_POINTS_NOT_CORRECT(-2, "Error: Start and End points not correct"),

@@ -39,18 +39,6 @@ public class GraphPanel extends JPanel {
         Town.resetCurrectTownId();
     }
 
-    public GraphPanel(int width, int height) {
-
-    }
-
-    public ArrayList<Town> getTowns() {
-        return towns;
-    }
-
-    public ArrayList<Ray> getRays() {
-        return rays;
-    }
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
