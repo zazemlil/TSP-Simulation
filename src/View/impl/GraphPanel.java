@@ -111,7 +111,7 @@ public class GraphPanel extends JPanel {
                 if (currentSelectTownNumber == 0) {
                     Town town = new Town(e.getX(), e.getY());
                     if (towns.size() == 0) {
-                        town.setColorFill(Color.GREEN);
+                        town.setColorFill(Color.CYAN);
                     }
                     towns.add(town);
                     Integer[][] params = new Integer[100][3];

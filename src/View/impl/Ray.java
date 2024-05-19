@@ -6,7 +6,7 @@ import java.awt.*;
 public class Ray {
     private int x1, y1, x2, y2;
     private Color colorAround, colorFill;
-    private JTextField weightTextField;
+    private JTextArea weightTextField;
     private Town town1, town2;
 
     public Ray(int x1, int y1, int x2, int y2, Town town1, Town town2) {
@@ -21,9 +21,9 @@ public class Ray {
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
 
-        weightTextField = new JTextField("");
-        weightTextField.setSize(35, 17);
-        weightTextField.setPreferredSize(new Dimension(35, 17));
+        weightTextField = new JTextArea("");
+        weightTextField.setSize(28, 17);
+        weightTextField.setPreferredSize(new Dimension(28, 17));
         weightTextField.setFocusable(false);
         weightTextField.setVisible(true);
     }
@@ -36,7 +36,7 @@ public class Ray {
         return res;
     }
 
-    public JTextField getWeightTextField() {
+    public JTextArea getWeightTextField() {
         weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
         return weightTextField;
     }
@@ -48,10 +48,14 @@ public class Ray {
     }
 
     public void paintRay(Graphics g) {
-        g.setColor(colorAround);
-        g.drawLine(x1, y1, x2, y2);
-        g.setColor(colorFill);
-        g.drawLine(x1, y1, x2, y2);
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setColor(colorAround);
+        g2d.drawLine(x1, y1, x2, y2);
+        g2d.setColor(colorFill);
+        g2d.drawLine(x1, y1, x2, y2);
+
         this.moveWeightTextField();
     }
 

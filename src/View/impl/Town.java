@@ -88,10 +88,13 @@ public class Town {
     }
 
     public void paintTown(Graphics g) {
-        g.setColor(colorAround);
-        g.drawOval(x, y, width, height);
-        g.setColor(colorFill);
-        g.fillOval(x, y, width, height);
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setStroke(new BasicStroke(5));
+        g2d.setColor(colorAround);
+        g2d.drawOval(x, y, width, height);
+        g2d.setColor(colorFill);
+        g2d.fillOval(x, y, width, height);
     }
 
     public void moveTown(int deltaX, int deltaY) {
