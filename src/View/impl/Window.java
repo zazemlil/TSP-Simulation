@@ -29,15 +29,6 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
 
         thread = new Thread(this);
     }
-    public Window(int width, int height) {
-        this.setSize(width, height);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-    }
-
-    public void setWindowSize(int width, int height) {
-        this.setSize(width, height);
-    }
 
     @Override
     public void start() {
@@ -56,8 +47,8 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-        graphPanel.mouseDragged(e);
+    public int mouseDragged(MouseEvent e) {
+        return graphPanel.mouseDragged(e);
     }
 
     @Override

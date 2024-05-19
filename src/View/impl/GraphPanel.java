@@ -36,6 +36,7 @@ public class GraphPanel extends JPanel {
         }
         towns.clear();
         rays.clear();
+        Town.resetCurrectTownId();
     }
 
     public GraphPanel(int width, int height) {
@@ -99,7 +100,7 @@ public class GraphPanel extends JPanel {
         }
     }
 
-    public void mouseDragged(MouseEvent e)
+    public int mouseDragged(MouseEvent e)
     {
         if(locked != null)
         {
@@ -108,7 +109,11 @@ public class GraphPanel extends JPanel {
             locked.moveTown(x - last_x, y - last_y);
             last_x = x;
             last_y = y;
+            Actions.ADD_RAY.resetParams();
+            Actions.ADD_RAY.setParams(locked.getNewRaysWeight());
+            return Actions.ADD_RAY.getValue();
         }
+        return -1;
     }
 
     public int mouseClicked(MouseEvent e) {
@@ -121,6 +126,9 @@ public class GraphPanel extends JPanel {
                         town.setColorFill(Color.GREEN);
                     }
                     towns.add(town);
+                    Integer[][] params = new Integer[100][3];
+                    params[0][0] = town.getId();
+                    Actions.ADD_TOWN.setParams(params);
                     return Actions.ADD_TOWN.getValue();
                 }
                 else {
@@ -151,6 +159,9 @@ public class GraphPanel extends JPanel {
                         prevTownForRayConnect = null;
                         flag = false;
 
+                        Integer[][] res = new Integer[100][3];
+                        res[0] = newRay.getRay();
+                        Actions.ADD_RAY.setParams(res);
                         return Actions.ADD_RAY.getValue();
                     }
 
@@ -166,32 +177,6 @@ public class GraphPanel extends JPanel {
                 }
             }
         }
-
-        // delete town
-        if (e.getButton() == MouseEvent.BUTTON3) {
-            if (currentSelectTownNumber != 0) {
-                prevTownForRayConnect.setColorAround(Color.GREEN);
-                currentSelectTownNumber = 0;
-                prevTownForRayConnect = null;
-                return -1;
-            }
-
-            Town town = getCollisionElement(e.getX(), e.getY());
-            if (town != null) {
-                for (Ray ray : town.getFirstSideRays()) {
-                    rays.remove(ray);
-                    this.remove(ray.getWeightTextField());
-                }
-                for (Ray ray : town.getSecondSideRays()) {
-                    rays.remove(ray);
-                    this.remove(ray.getWeightTextField());
-                }
-                towns.remove(town);
-
-                return Actions.DELETE_TOWN.getValue();
-            }
-        }
-
         return -1;
     }
 }

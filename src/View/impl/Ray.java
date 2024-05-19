@@ -27,6 +27,15 @@ public class Ray {
         weightTextField.setFocusable(false);
         weightTextField.setVisible(true);
     }
+
+    public Integer[] getRay() {
+        Integer[] res = new Integer[3];
+        res[0] = town1.getId();
+        res[1] = town2.getId();
+        res[2] = (int)Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+        return res;
+    }
+
     public JTextField getWeightTextField() {
         weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
         return weightTextField;
@@ -36,22 +45,6 @@ public class Ray {
         weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
         int l = (int)Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
         weightTextField.setText(Integer.toString(l));
-    }
-
-    public float getX1() {
-        return this.x1;
-    }
-
-    public float getY1() {
-        return this.y1;
-    }
-
-    public float getX2() {
-        return this.x2;
-    }
-
-    public float getY2() {
-        return this.y2;
     }
 
     public void paintRay(Graphics g) {

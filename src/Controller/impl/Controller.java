@@ -32,39 +32,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     }
 
     public void start() {
-        tspModel.addVertex(0);
-        //tspModel.addVertex(1);
-        tspModel.addVertex(2);
-        tspModel.addVertex(3);
-        //tspModel.deleteVertex(1);
-
-        //tspModel.setRay(0, 1, 15);
-
-        tspModel.setRay(0, 2, 40);
-
-        //tspModel.setRay(1, 2, 30);
-
-        tspModel.setRay(2, 3, 30);
-
-
-        //tspModel.setStartPoint(2);
-        //tspModel.setEndPoint(0);
-
-        //tspModel.deleteRay(0, 2);
-
-
-        tspModel.setRay(0, 3, 2);
-        //tspModel.setStartPoint(0);
-        //tspModel.setEndPoint(0);
-
-        System.out.println(tspModel.tsp());
-
         view.start();
-        update();
-    }
-
-    private void update() {
-
     }
 
     public static void main(String[] args) {
@@ -89,14 +57,12 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     public void mouseClicked(MouseEvent mouseEvent) {
         int res = view.mouseClicked(mouseEvent);
         if (res == Actions.ADD_TOWN.getValue()) {
-            // -------------
-            System.out.println("add town");
-        } else if (res == Actions.DELETE_TOWN.getValue()) {
-            // -------------
-            System.out.println("delete town");
-        } else if (res == Actions.ADD_RAY.getValue()) {
-            // -------------
-            System.out.println("add ray");
+            Integer[][] params = Actions.getParams(Actions.ADD_TOWN.getValue());
+            tspModel.addVertex(params[0][0]);
+        }
+        else if (res == Actions.ADD_RAY.getValue()) {
+            Integer[][] params = Actions.getParams(Actions.ADD_RAY.getValue());
+            tspModel.setRay(params[0][0], params[0][1], params[0][2]);
         }
     }
     @Override
@@ -117,7 +83,15 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     }
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        view.mouseDragged(mouseEvent);
+        int res = view.mouseDragged(mouseEvent);
+        if (res == Actions.ADD_RAY.getValue()) {
+            Integer[][] params = Actions.getParams(Actions.ADD_RAY.getValue());
+            for (int i = 0; i < params.length; i++) {
+                if (params[i][0] == null) break;
+
+                tspModel.setRay(params[i][0], params[i][1], params[i][2]);
+            }
+        }
     }
 
     @Override
