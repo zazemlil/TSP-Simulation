@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Town {
-    private static int currectTownId = 0;
+    private static int currentTownId = 0;
     private int id;
     private int x, y;
     private int width, height;
@@ -13,8 +13,8 @@ public class Town {
     private ArrayList<Ray> secondSideRays;
 
     public Town(int x, int y) {
-        this.id = currectTownId;
-        currectTownId++;
+        this.id = currentTownId;
+        currentTownId++;
         this.width = 50;
         this.height = 50;
         this.x = x - width/2;
@@ -39,8 +39,8 @@ public class Town {
         return res;
     }
 
-    public static void resetCurrectTownId() {
-        currectTownId = 0;
+    public static void resetCurrentTownId() {
+        currentTownId = 0;
     }
 
     public int getId() {

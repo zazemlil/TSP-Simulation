@@ -71,7 +71,7 @@ public class Graph {
 
         Set<Integer> seen = new HashSet<>();
 
-        min = new Route(List.of(this.vertexes.get(0)), Integer.MAX_VALUE); // startPointIndex
+        min = new Route(List.of(this.vertexes.get(0)), Integer.MAX_VALUE);
 
         bruteforce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
 

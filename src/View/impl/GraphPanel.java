@@ -36,7 +36,7 @@ public class GraphPanel extends JPanel {
         }
         towns.clear();
         rays.clear();
-        Town.resetCurrectTownId();
+        Town.resetCurrentTownId();
     }
 
     public void paintComponent(Graphics g) {
