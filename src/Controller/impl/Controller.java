@@ -2,6 +2,7 @@ package Controller.impl;
 
 import Controller.interfaces.IObservable;
 import Model.interfaces.IModel;
+import Model.utilz.ErrorCodes;
 import View.interfaces.IObserver;
 import View.interfaces.IView;
 import Model.impl.Model;
@@ -75,7 +76,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
         int action = view.actionPerformed(actionEvent);
         if (action == Actions.TSP_COMPUTE.getValue()) {
             int res = tspModel.tsp();
-            observable.notifyObservers(Integer.toString(res));
+            if (res >= 0)
+                observable.notifyObservers(Integer.toString(res));
+            else {
+                observable.notifyObservers(ErrorCodes.getInfo(res));
+            }
         } else if (action == Actions.CLEAR.getValue()) {
             tspModel.clear();
         }

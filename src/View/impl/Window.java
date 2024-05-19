@@ -116,6 +116,7 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
 
     @Override
     public void update(String result) {
-        menuPanel.setResult("Result: " + result);
+        if (result != "")
+            menuPanel.setResult("Result: " + result);
     }
 }
