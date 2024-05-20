@@ -32,6 +32,7 @@ public class MenuPanel extends JPanel {
         buttonPanel.add(computeButton);
         resultPanel.add(resultLabel, BorderLayout.CENTER);
 
+        realTimeUpdatingCheckBox.setBackground(Color.WHITE);
         buttonPanel.setBackground(Color.WHITE);
         resultPanel.setBackground(Color.WHITE);
 
