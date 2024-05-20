@@ -75,23 +75,21 @@ public class Graph {
             }
             if (weight != 0) {
                 Route route = current.add(this.vertexes.get(0), weight);
-                min = route;
+                if (route.getWeight() < min.getWeight()) {
+                    min = route;
+                }
             }
         }
         else
         {
             for (int j = 0; j < vertexes.size(); j++) {
                 int weight = 0;
-                if (this.edges == null) break;
                 if (this.edges[i][j] != null) {
                     weight = this.edges[i][j];
                 }
                 if (weight != 0 && !seen.contains(j)) {
                     Route route = current.add(this.vertexes.get(j), weight);
-                    if (route.getWeight() < min.getWeight()) {
-                        bruteForce(j, route, seen);
-                    }
-
+                    bruteForce(j, route, seen);
                 }
             }
         }
