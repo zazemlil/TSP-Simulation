@@ -10,13 +10,11 @@ import java.util.Set;
 public class Graph {
     private List<Integer> vertexes;
     private Integer[][] edges;
-    private List<Integer[]> edgesParams;
     private Route min = null;
 
     public Graph() {
         this.vertexes = new ArrayList<>();
         this.edges = null;
-        this.edgesParams = new ArrayList<> ();
     }
 
     public void addVertex(int vertex) {
@@ -33,17 +31,6 @@ public class Graph {
     }
 
     public void setRay(int vertex1, int vertex2, int weight) {
-        Integer[] params = new Integer[] {vertex1, vertex2, weight};
-        for (Integer[] item : edgesParams) {
-            if (item[0] == vertex1 && item[1] == vertex2 || item[0] == vertex2 && item[1] == vertex1) {
-                item[3] = weight;
-            }
-            else {
-                edgesParams.add(params);
-            }
-        }
-
-
         if (edges == null) {
             this.edges = new Integer[vertexes.size()][vertexes.size()];
         }
