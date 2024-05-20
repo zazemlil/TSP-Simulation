@@ -2,8 +2,8 @@ package Model.utilz;
 
 public enum ErrorCodes {
     PATH_NOT_FOUND(-1, "Error: can not find path"),
-    NOT_ALL_TOWNS_CONNECTED(-3, "Error: not all towns are connected"),
-    NO_TOWNS(-4, "Error: no towns");
+    NOT_ALL_TOWNS_CONNECTED(-2, "Error: not all towns are connected"),
+    NO_TOWNS(-3, "Error: no towns");
     private final int value;
     private final String info;
     private ErrorCodes(int value, String info) {
