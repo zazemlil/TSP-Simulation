@@ -1,7 +1,5 @@
 package View.utilz;
 
-import Model.utilz.ErrorCodes;
-
 public enum Actions {
     TSP_COMPUTE(1), ADD_TOWN(2), ADD_RAY(3), CLEAR(4), REAL_TIME_UPDATING(5);
     private int value;

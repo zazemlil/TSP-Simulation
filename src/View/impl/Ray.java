@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Ray {
     private int x1, y1, x2, y2;
-    private Color colorAround, colorFill;
+    private Color color;
     private JTextArea weightTextField;
     private Town town1, town2;
 
@@ -18,8 +18,7 @@ public class Ray {
         this.town1 = town1;
         this.town2 = town2;
 
-        colorAround = Color.GREEN;
-        colorFill = Color.ORANGE;
+        color = Color.LIGHT_GRAY;
 
         weightTextField = new JTextArea("");
         weightTextField.setSize(28, 17);
@@ -51,9 +50,7 @@ public class Ray {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(colorAround);
-        g2d.drawLine(x1, y1, x2, y2);
-        g2d.setColor(colorFill);
+        g2d.setColor(color);
         g2d.drawLine(x1, y1, x2, y2);
 
         this.moveWeightTextField();

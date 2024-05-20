@@ -43,6 +43,7 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
         graphPanel.mousePressed(e);
     }
 
+    @Override
     public void mouseReleased(MouseEvent e)
     {
         graphPanel.mouseReleased(e);
