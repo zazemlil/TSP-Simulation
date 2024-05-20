@@ -1,13 +1,12 @@
 package Model.impl;
 
-import Controller.interfaces.IObservable;
+import Model.interfaces.IObservable;
 import Model.interfaces.IModel;
+import Model.utilz.*;
+import View.interfaces.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.utilz.*;
-import View.interfaces.IObserver;
 
 public class Model implements IModel, IObservable {
     private List<IObserver> observers = new ArrayList<>();
@@ -28,13 +27,18 @@ public class Model implements IModel, IObservable {
     }
 
     @Override
-    public int tsp() {
+    public void tsp() {
         int res = graph.tsp();
         if (res == Integer.MAX_VALUE)
         {
             res = ErrorCodes.PATH_NOT_FOUND.getValue();
         }
-        return res;
+
+        if (res >= 0)
+            this.notifyObservers(Integer.toString(res));
+        else {
+            this.notifyObservers(ErrorCodes.getInfo(res));
+        }
     }
 
     @Override

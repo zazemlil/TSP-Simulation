@@ -1,4 +1,4 @@
-package Controller.interfaces;
+package Model.interfaces;
 
 import View.interfaces.IObserver;
 

@@ -1,8 +1,7 @@
 package Controller.impl;
 
-import Controller.interfaces.IObservable;
+import Model.interfaces.IObservable;
 import Model.interfaces.IModel;
-import Model.utilz.ErrorCodes;
 import View.interfaces.IObserver;
 import View.interfaces.IView;
 import Model.impl.Model;
@@ -17,7 +16,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     private static IModel tspModel;
     private static IObservable observable;
     private static IObserver observer;
-    private static boolean realTimeUpdating = false; // 0 or 1
+    private static boolean realTimeUpdating = false;
     private final int UPS_SET = 10;
 
     public Controller() {
@@ -43,13 +42,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     }
 
     private void update() {
-        if (realTimeUpdating == true) {
-            int res = tspModel.tsp();
-            if (res >= 0)
-                observable.notifyObservers(Integer.toString(res));
-            else {
-                observable.notifyObservers(ErrorCodes.getInfo(res));
-            }
+        if (realTimeUpdating) {
+            tspModel.tsp();
         }
     }
     public static void main(String[] args) {
@@ -60,12 +54,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
     public void actionPerformed(ActionEvent actionEvent) {
         int action = view.actionPerformed(actionEvent);
         if (action == Actions.TSP_COMPUTE.getValue()) {
-            int res = tspModel.tsp();
-            if (res >= 0)
-                observable.notifyObservers(Integer.toString(res));
-            else {
-                observable.notifyObservers(ErrorCodes.getInfo(res));
-            }
+            tspModel.tsp();
         } else if (action == Actions.CLEAR.getValue()) {
             tspModel.clear();
         }
