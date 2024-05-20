@@ -6,7 +6,7 @@ import java.awt.*;
 public class Ray {
     private int x1, y1, x2, y2;
     private Color color;
-    private JTextArea weightTextField;
+    private JTextArea weightTextArea;
     private Town town1, town2;
 
     public Ray(int x1, int y1, int x2, int y2, Town town1, Town town2) {
@@ -20,11 +20,11 @@ public class Ray {
 
         color = Color.LIGHT_GRAY;
 
-        weightTextField = new JTextArea("");
-        weightTextField.setSize(28, 17);
-        weightTextField.setPreferredSize(new Dimension(28, 17));
-        weightTextField.setFocusable(false);
-        weightTextField.setVisible(true);
+        weightTextArea = new JTextArea("");
+        weightTextArea.setSize(28, 17);
+        weightTextArea.setPreferredSize(new Dimension(28, 17));
+        weightTextArea.setFocusable(false);
+        weightTextArea.setVisible(true);
     }
 
     public Integer[] getRay() {
@@ -35,15 +35,15 @@ public class Ray {
         return res;
     }
 
-    public JTextArea getWeightTextField() {
-        weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
-        return weightTextField;
+    public JTextArea getWeightTextArea() {
+        weightTextArea.setLocation((x1+x2)/2, (y1+y2)/2);
+        return weightTextArea;
     }
 
-    public void moveWeightTextField() {
-        weightTextField.setLocation((x1+x2)/2, (y1+y2)/2);
+    public void moveWeightTextArea() {
+        weightTextArea.setLocation((x1+x2)/2, (y1+y2)/2);
         int l = (int)Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
-        weightTextField.setText(Integer.toString(l));
+        weightTextArea.setText(Integer.toString(l));
     }
 
     public void paintRay(Graphics g) {
@@ -53,7 +53,7 @@ public class Ray {
         g2d.setColor(color);
         g2d.drawLine(x1, y1, x2, y2);
 
-        this.moveWeightTextField();
+        this.moveWeightTextArea();
     }
 
     public void moveX1(int deltaX) {

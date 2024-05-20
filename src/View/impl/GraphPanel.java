@@ -28,10 +28,10 @@ public class GraphPanel extends JPanel {
     public void clearGraphPanel() {
         for (Town town : towns) {
             for (Ray ray : town.getFirstSideRays()) {
-                this.remove(ray.getWeightTextField());
+                this.remove(ray.getWeightTextArea());
             }
             for (Ray ray : town.getSecondSideRays()) {
-                this.remove(ray.getWeightTextField());
+                this.remove(ray.getWeightTextArea());
             }
         }
         towns.clear();
@@ -140,8 +140,8 @@ public class GraphPanel extends JPanel {
                 if (isTownSelected == true) {
                     if (prevTownForRayConnect != town) {
                         Ray newRay = new Ray(prevTownForRayConnect.getCentreX(), prevTownForRayConnect.getCentreY(), town.getCentreX(), town.getCentreY(), prevTownForRayConnect, town);
-                        this.add(newRay.getWeightTextField());
-                        newRay.getWeightTextField().repaint();
+                        this.add(newRay.getWeightTextArea());
+                        newRay.getWeightTextArea().repaint();
                         rays.add(newRay);
                         this.repaint();
                         prevTownForRayConnect.addFirstSideRays(newRay);
