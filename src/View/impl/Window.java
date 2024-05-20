@@ -27,6 +27,8 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
         this.add(menuPanel, BorderLayout.SOUTH);
         graphPanel.add(fpsLabel);
 
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+
         thread = new Thread(this);
     }
 

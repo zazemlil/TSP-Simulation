@@ -32,6 +32,9 @@ public class MenuPanel extends JPanel {
         buttonPanel.add(computeButton);
         resultPanel.add(resultLabel, BorderLayout.CENTER);
 
+        buttonPanel.setBackground(Color.WHITE);
+        resultPanel.setBackground(Color.WHITE);
+
         this.add(buttonPanel);
         this.add(resultPanel);
 

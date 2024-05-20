@@ -13,7 +13,7 @@ public class GraphPanel extends JPanel {
     private ArrayList<Ray> rays;
     private int last_x, last_y;
     private Town locked;
-    private int currentSelectTownNumber = 0; // 0 or 1
+    private boolean isTownSelected = false;
     private Town prevTownForRayConnect = null;
     public GraphPanel() {
         this.setSize(100, 100);
@@ -113,7 +113,7 @@ public class GraphPanel extends JPanel {
         // add town
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (getCollisionElement(e.getX(), e.getY()) == null) {
-                if (currentSelectTownNumber == 0) {
+                if (isTownSelected == false) {
                     Town town = new Town(e.getX(), e.getY());
                     if (towns.size() == 0) {
                         town.setColorFill(Color.CYAN);
@@ -126,7 +126,7 @@ public class GraphPanel extends JPanel {
                 }
                 else {
                     prevTownForRayConnect.setColorAround(Color.GREEN);
-                    currentSelectTownNumber = 0;
+                    isTownSelected = false;
                     prevTownForRayConnect = null;
                 }
             }
@@ -137,7 +137,7 @@ public class GraphPanel extends JPanel {
             Town town = getCollisionElement(e.getX(), e.getY());
             boolean flag = true;
             if (town != null) {
-                if (currentSelectTownNumber == 1) {
+                if (isTownSelected == true) {
                     if (prevTownForRayConnect != town) {
                         Ray newRay = new Ray(prevTownForRayConnect.getCentreX(), prevTownForRayConnect.getCentreY(), town.getCentreX(), town.getCentreY(), prevTownForRayConnect, town);
                         this.add(newRay.getWeightTextField());
@@ -148,7 +148,7 @@ public class GraphPanel extends JPanel {
                         town.addSecondSideRays(newRay);
 
                         prevTownForRayConnect.setColorAround(Color.GREEN);
-                        currentSelectTownNumber = 0;
+                        isTownSelected = false;
                         prevTownForRayConnect = null;
                         flag = false;
 
@@ -159,14 +159,14 @@ public class GraphPanel extends JPanel {
                     }
 
                     prevTownForRayConnect.setColorAround(Color.GREEN);
-                    currentSelectTownNumber = 0;
+                    isTownSelected = false;
                     prevTownForRayConnect = null;
                     flag = false;
                 }
-                if (currentSelectTownNumber == 0 && flag) {
+                if (isTownSelected == false && flag) {
                     town.setColorAround(Color.RED);
                     prevTownForRayConnect = town;
-                    currentSelectTownNumber = 1;
+                    isTownSelected = true;
                 }
             }
         }
