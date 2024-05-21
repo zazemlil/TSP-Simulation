@@ -23,13 +23,18 @@ public class Town {
         this.y = y - height/2;
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
+
         idLabel = new JLabel(Integer.toString(id));
-        idLabel.setLocation(this.getCentreX(), this.getCentreY());
+        idLabel.setSize(20, 17);
+        idLabel.setFocusable(false);
+        idLabel.setVisible(true);
+
         firstSideRays = new ArrayList<>();
         secondSideRays = new ArrayList<>();
     }
 
     public JLabel getIdLabel() {
+        idLabel.setLocation(this.getCentreX()-idLabel.getWidth()/2, this.getCentreY()-idLabel.getHeight()/2);
         return idLabel;
     }
 
@@ -104,7 +109,12 @@ public class Town {
         g2d.setColor(colorFill);
         g2d.fillOval(x, y, width, height);
 
-        idLabel.setLocation(this.getCentreX()-idLabel.getWidth()/2, this.getCentreY()-idLabel.getHeight()/2);
+        this.moveIdLabel();
+    }
+
+    public void moveIdLabel() {
+        this.idLabel.setLocation(this.getCentreX()-idLabel.getWidth()/2, this.getCentreY()-idLabel.getHeight()/2);
+        this.idLabel.setText(" " + (this.id) + " ");
     }
 
     public void moveTown(int deltaX, int deltaY) {

@@ -27,6 +27,7 @@ public class GraphPanel extends JPanel {
 
     public void clearGraphPanel() {
         for (Town town : towns) {
+            this.remove(town.getIdLabel());
             for (Ray ray : town.getFirstSideRays()) {
                 this.remove(ray.getWeightTextArea());
             }
@@ -41,7 +42,6 @@ public class GraphPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
@@ -119,7 +119,10 @@ public class GraphPanel extends JPanel {
                         town.setColorFill(Color.CYAN);
                     }
                     this.add(town.getIdLabel());
+                    town.getIdLabel().repaint();
                     towns.add(town);
+                    this.repaint();
+
                     Integer[][] params = new Integer[100][3];
                     params[0][0] = town.getId();
                     Actions.ADD_TOWN.setParams(params);

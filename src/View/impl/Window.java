@@ -12,6 +12,7 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
     private final int FPS_SET = 400;
     private GraphPanel graphPanel;
     private MenuPanel menuPanel;
+    private JPanel infoPanel;
     private JLabel fpsLabel;
     public Window() {
         super("Traveling Salesman Problem Simulation");
@@ -19,13 +20,21 @@ public class Window extends JFrame implements IView, IObserver, Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
+
         graphPanel = new GraphPanel();
         menuPanel = new MenuPanel();
+        infoPanel = new JPanel();
         fpsLabel = new JLabel();
+
+        infoPanel.add(fpsLabel);
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
         fpsLabel.setForeground(Color.GREEN);
+        fpsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        this.add(infoPanel, BorderLayout.NORTH);
         this.add(graphPanel);
         this.add(menuPanel, BorderLayout.SOUTH);
-        graphPanel.add(fpsLabel);
 
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 

@@ -41,7 +41,7 @@ public class Ray {
     }
 
     public void moveWeightTextArea() {
-        weightTextArea.setLocation((x1+x2)/2, (y1+y2)/2);
+        weightTextArea.setLocation((x1+x2)/2-weightTextArea.getWidth()/2, (y1+y2)/2-weightTextArea.getHeight()/2);
         int l = (int)Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
         weightTextArea.setText(Integer.toString(l));
     }
