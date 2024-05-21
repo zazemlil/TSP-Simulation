@@ -28,14 +28,27 @@ public class Model implements IModel, IObservable {
 
     @Override
     public void tsp() {
-        int res = graph.tsp();
+        Route route = graph.tsp();
+        int res = route.getWeight();
         if (res == Integer.MAX_VALUE)
         {
             res = ErrorCodes.PATH_NOT_FOUND.getValue();
         }
 
-        if (res >= 0)
-            this.notifyObservers(Integer.toString(res));
+        if (res >= 0) {
+            boolean isFirstIter = true;
+            String path = "";
+            for (Integer item : route.getVertexes()) {
+                if (isFirstIter) {
+                    path += "       Path: " + item;
+                    isFirstIter = false;
+                }
+                else {
+                    path += " => " + item;
+                }
+            }
+            this.notifyObservers((res) + path);
+        }
         else {
             this.notifyObservers(ErrorCodes.getInfo(res));
         }

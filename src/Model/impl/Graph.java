@@ -42,9 +42,9 @@ public class Graph {
         }
     }
 
-    public int tsp() {
+    public Route tsp() {
         if (edges == null) {
-            return ErrorCodes.NO_TOWNS.getValue();
+            return new Route(null, ErrorCodes.NO_TOWNS.getValue());
         }
         for (int i = 0; i < edges.length; i++) {
             int count = 0;
@@ -53,7 +53,7 @@ public class Graph {
                     count++;
                 }
             }
-            if (count == edges[i].length) return ErrorCodes.NOT_ALL_TOWNS_CONNECTED.getValue();
+            if (count == edges[i].length) return new Route(null, ErrorCodes.NOT_ALL_TOWNS_CONNECTED.getValue());
         }
 
         Set<Integer> seen = new HashSet<>();
@@ -62,9 +62,8 @@ public class Graph {
 
         bruteForce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
 
-        if (min.getWeight() != Integer.MAX_VALUE)
-            min.printVertexes();
-        return this.min.getWeight();
+
+        return this.min;
     }
 
     private void bruteForce(int i, Route current, Set<Integer> seen) {

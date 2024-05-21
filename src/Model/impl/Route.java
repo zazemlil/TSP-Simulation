@@ -12,11 +12,8 @@ class Route {
         this.weight = weight;
     }
 
-    public void printVertexes() {
-        for (Integer item : vertexes) {
-            System.out.print(item + " ");
-        }
-        System.out.println();
+    public List<Integer> getVertexes() {
+        return this.vertexes;
     }
 
     public int getWeight() {
