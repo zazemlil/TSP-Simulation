@@ -1,5 +1,6 @@
 package View.impl;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Town {
     private Color colorAround, colorFill;
     private ArrayList<Ray> firstSideRays;
     private ArrayList<Ray> secondSideRays;
+    private JLabel idLabel;
 
     public Town(int x, int y) {
         this.id = currentTownId;
@@ -21,8 +23,14 @@ public class Town {
         this.y = y - height/2;
         colorAround = Color.GREEN;
         colorFill = Color.ORANGE;
+        idLabel = new JLabel(Integer.toString(id));
+        idLabel.setLocation(this.getCentreX(), this.getCentreY());
         firstSideRays = new ArrayList<>();
         secondSideRays = new ArrayList<>();
+    }
+
+    public JLabel getIdLabel() {
+        return idLabel;
     }
 
     public Integer[][] getNewRaysWeight() {
@@ -95,6 +103,8 @@ public class Town {
         g2d.drawOval(x, y, width, height);
         g2d.setColor(colorFill);
         g2d.fillOval(x, y, width, height);
+
+        idLabel.setLocation(this.getCentreX()-idLabel.getWidth()/2, this.getCentreY()-idLabel.getHeight()/2);
     }
 
     public void moveTown(int deltaX, int deltaY) {

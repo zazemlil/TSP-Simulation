@@ -62,6 +62,8 @@ public class Graph {
 
         bruteForce(0, new Route(List.of(this.vertexes.get(0)), 0), seen);
 
+        if (min.getWeight() != Integer.MAX_VALUE)
+            min.printVertexes();
         return this.min.getWeight();
     }
 
